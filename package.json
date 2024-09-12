@@ -1,0 +1,17 @@
+{
+  "name": "instagram-scraper",
+  "version": "1.0.0",
+  "description": "Instagram scraper",
+  "main": "index.js",
+  "type": "module",
+  "author": {
+    "name": "Niwa",
+    "email": "niwaisme@proton.me"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "puppeteer": "^23.3.0"
+  }
+}
