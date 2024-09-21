@@ -5,7 +5,7 @@ const username = 'fallingin__fall';
 
 (async () => {
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: 'shell',
     defaultViewport: null,
   });
   const page = await browser.newPage();
@@ -38,7 +38,8 @@ const username = 'fallingin__fall';
       filename: `image-${index + 1}.${ext}`,
       type: viewSource.headers()['content-type'],
       ext: viewSource.headers()['content-type'].split('/')[1],
-      size: blob.size
+      size: blob.size,
+      blob: `data:${viewSource.headers()['content-type']};base64,${buffer.toString('base64')}`
     }
     return meta
   }));
