@@ -9,7 +9,8 @@
     "email": "niwaisme@proton.me"
   },
   "scripts": {
-    "start": "node api/index.js"
+    "start": "node api/index.js",
+    "dev": "node --watch api/index.js"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

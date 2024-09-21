@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
+import scraper from "../scraper/instagram.js";
 dotenv.config();
 
 const app = express();
@@ -16,14 +17,11 @@ app.get("/", (_req, res) => {
   });
 });
 
-app.get("/:username", (req, res) => {
-  res.status(200).json({
+app.get("/:username", async (req, res) => {
+  const data = await scraper(req.params.username);
+  return res.status(200).json({
     message: "It's working!",
-    data: [
-      {
-        name: req.params.username,
-      },
-    ],
+    data,
   });
 });
 
