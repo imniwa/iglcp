@@ -40,9 +40,6 @@ export default async function (username) {
         ext,
         type: viewSource.headers()["content-type"],
         size: blob.size,
-        blob: `data:${
-          viewSource.headers()["content-type"]
-        };base64,${buffer.toString("base64")}`,
       };
       return meta;
     })
