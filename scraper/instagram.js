@@ -1,9 +1,13 @@
-import fs from "node:fs";
-import puppeteer from "puppeteer";
+import chromium from "@sparticuz/chromium";
+import puppeteer from "puppeteer-core";
 
 export default async function (username) {
   const browser = await puppeteer.launch({
-    headless: "shell",
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(),
+    headless: chromium.headless_shell,
+    ignoreHTTPSErrors: true,
     defaultViewport: null,
   });
   const page = await browser.newPage();
@@ -26,13 +30,6 @@ export default async function (username) {
         type: viewSource.headers()["content-type"],
       });
       const ext = viewSource.headers()["content-type"].split("/")[1];
-      const filePath = `./images/${username}/image-${index + 1}.${ext}`;
-      fs.mkdirSync(`./images/${username}`, {
-        recursive: true,
-        mode: 0o755,
-        ifExists: true,
-      });
-      fs.writeFileSync(filePath, buffer);
 
       const id = new String(image.split("/")[5]);
       const pos = id.indexOf("?");
@@ -40,9 +37,8 @@ export default async function (username) {
       const meta = {
         id: id.substring(0, pos),
         url: image,
-        filename: `image-${index + 1}.${ext}`,
+        ext,
         type: viewSource.headers()["content-type"],
-        ext: viewSource.headers()["content-type"].split("/")[1],
         size: blob.size,
         blob: `data:${
           viewSource.headers()["content-type"]
