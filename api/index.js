@@ -16,5 +16,16 @@ app.get("/", (_req, res) => {
   });
 });
 
+app.get("/:username", (req, res) => {
+  res.status(200).json({
+    message: "It's working!",
+    data: [
+      {
+        name: req.params.username,
+      },
+    ],
+  });
+});
+
 app.listen(3000, () => console.log("Server ready on port 3000."));
 export default app;
