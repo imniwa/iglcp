@@ -19,7 +19,7 @@ export default async function (username) {
   await page.waitForSelector("article");
   const images = await page.evaluate(() => {
     const images = Array.from(document.querySelectorAll("article img"));
-    return images.map((image) => image.src);
+    return images.map((image) => image.src).slice(0, 4);
   });
   const metadata = await Promise.all(
     images.map(async (image, index) => {
